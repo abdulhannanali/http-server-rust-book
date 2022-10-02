@@ -1,4 +1,5 @@
 mod html;
+mod config;
 
 use std::{
     fs,
@@ -8,18 +9,20 @@ use std::{
 };
 
 use html::*;
+use config::Config;
 
 
 fn main() {
-    let address = "127.0.0.1:7879";
-    let listener = TcpListener::bind(address).unwrap();
-    
-    println!("listening on {}", address);
+    let config = Config::new();
+    let address = format!("{}:{}", config.host, config.port);
+    let listener = TcpListener::bind(&address).unwrap();
+    println!("listneing on {}", &address);
     
     for stream in listener.incoming() {
         let stream = stream.unwrap();
         handle_connection(stream);
     }
+
 }
 
 
@@ -42,6 +45,5 @@ fn handle_connection(mut stream: TcpStream) {
     let response = create_html_response(status, reason, contents);
     stream.write_all(response.as_bytes()).unwrap();
 
-    println!("Response written");
 }
 
