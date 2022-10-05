@@ -1,6 +1,5 @@
 steps:
   - name: 'gcr.io/cloud-builders/gcloud'
-
     args: [
       "run",
       "deploy",
@@ -15,10 +14,13 @@ steps:
       "--port",
       "$_PORT"
     ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    dir: single-threaded
+    args: ['build', '.', '-t', '$_RUST_SINGLE_THREADED_DOCKER_REPO']  
 substitutions:
   _PORT: "8000"
   _REGION: us-central1
   _RUST_SINGLE_THREADED_DOCKER_REPO: us-central1-docker.pkg.dev/${PROJECT_ID}/rust-single-threaded-web-server/server-image:latest
-  _SERVICE_NAME: 
 options:
   dynamic_substitutions: true
