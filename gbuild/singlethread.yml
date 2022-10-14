@@ -2,6 +2,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     dir: singlethreadedserver
     args: ['build', '.', '-t', '$_RUST_SINGLE_THREADED_DOCKER_REPO']  
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_RUST_SINGLE_THREADED_DOCKER_REPO']
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       "run",
@@ -24,5 +28,3 @@ substitutions:
   _RUST_SINGLE_THREADED_DOCKER_REPO: us-central1-docker.pkg.dev/${PROJECT_ID}/rust-single-threaded-web-server/server-image:latest
 options:
   dynamic_substitutions: true
-images:
-  - $_RUST_SINGLE_THREADED_DOCKER_REPO

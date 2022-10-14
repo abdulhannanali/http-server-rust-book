@@ -3,6 +3,9 @@ steps:
     dir: multithreadedserver
     args: ['build', '.', '-t', '$_RUST_MULTI_THREADED_DOCKER_REPO']
 
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_RUST_MULTI_THREADED_DOCKER_REPO']
+
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
       "run",
@@ -24,5 +27,4 @@ substitutions:
   _RUST_MULTI_THREADED_DOCKER_REPO: us-central1-docker.pkg.dev/${PROJECT_ID}/rust-multi-threaded-server/server-image:latest
 options:
   dynamic_substitutions: true
-images:
-  - $_RUST_MULTI_THREADED_DOCKER_REPO
+
