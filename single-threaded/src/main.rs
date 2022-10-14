@@ -44,6 +44,5 @@ fn handle_connection(mut stream: TcpStream) {
     let contents = fs::read_to_string(file_name).unwrap();
     let response = create_html_response(status, reason, contents);
     stream.write_all(response.as_bytes()).unwrap();
-
 }
 
