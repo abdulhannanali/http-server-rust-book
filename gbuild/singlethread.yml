@@ -10,7 +10,7 @@ steps:
     args: [
       "run",
       "deploy",
-      "cloudrunservice",
+      "$_SERVICE_NAME",
       "--image",
       "$_RUST_SINGLE_THREADED_DOCKER_REPO",
       "--region",
@@ -25,6 +25,7 @@ steps:
 substitutions:
   _PORT: "8000"
   _REGION: us-central1
+  _SERVICE_NAME: singlethreadedrustserver
   _RUST_SINGLE_THREADED_DOCKER_REPO: us-central1-docker.pkg.dev/${PROJECT_ID}/rust-single-threaded-web-server/server-image:latest
 options:
   dynamic_substitutions: true
